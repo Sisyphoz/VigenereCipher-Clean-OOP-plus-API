@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from VigenereCipher import VigenereCipher
+from VigenereCipherScript import VigenereCipher
 
 app = Flask(__name__)
 
