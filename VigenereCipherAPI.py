@@ -3,10 +3,8 @@ from VigenereCipherScript import VigenereCipher
 
 app = Flask(__name__)
 
-# Initialize a new VigenereCipher object
 vc = VigenereCipher()
 
-# Endpoint for encrypting a plaintext with a given key
 @app.route('/encrypt', methods=['POST'])
 def encrypt():
     data = request.get_json()
@@ -15,7 +13,6 @@ def encrypt():
     ciphertext = vc.encrypt(plaintext, key)
     return jsonify({'ciphertext': ciphertext})
 
-# Endpoint for decrypting a ciphertext with a given key
 @app.route('/decrypt', methods=['POST'])
 def decrypt():
     data = request.get_json()
