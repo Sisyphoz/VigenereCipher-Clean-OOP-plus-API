@@ -1,0 +1,81 @@
+'Vigenere Cipher API' is a simple RESTful API that uses encrypt() and decrypt() 
+methods of the VigenereCipher class as endpoints. 
+
+The API is built using the Flask framework and can be used to encrypt and decrypt 
+plaintext using the Vigenere Cipher algorithm.
+
+Getting Started
+
+Open a terminal or command prompt and run the following command:
+
+pip install flask
+
+Start the API by running the following command in a terminal or command prompt:
+
+python app.py
+
+This will start the Flask development server and make the API available at http://localhost:5000/. 
+You can test the API using a REST client like Postman, or by sending HTTP requests using a tool like curl.
+
+API Endpoints
+
+The Vigenere Cipher API has two endpoints:
+/encrypt
+
+This endpoint accepts a POST request with a JSON payload containing a plaintext and a key, and returns a JSON payload.
+
+Example request:
+
+POST /encrypt HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "plaintext": "Fresh magdalenas are amazing. Maybe not?",
+    "key": "SECRET"
+}
+
+Example response:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "ciphertext": "XVGJLFSKFRPXFEURVXSQCQMGYQCPFXFSV"
+}
+
+/decrypt
+
+This endpoint accepts a POST request with a JSON payload containing a ciphertext and a key, and returns a JSON payload.
+
+Example:
+
+POST /decrypt HTTP/1.1
+Host: localhost:5000
+Content-Type: application/json
+
+{
+    "ciphertext": "XVGJLFSKFRPXFEURVXSQCQMGYQCPFXFSV",
+    "key": "SECRET"
+}
+
+Example response:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "plaintext": "FRESHMAGDALENASAREAMAZINGMAYBENOT"
+}
+
+Error Handling:
+
+If the API encounters an error, it will return a JSON payload with an error message and an HTTP status code indicating the type of error.
+
+Here are some common error scenarios:
+
+    If the request payload is missing a plaintext or ciphertext field, the API will return a 400 Bad Request error with a message indicating the missing field.
+    If the request payload is missing a key field, the API will return a 400 Bad Request error with a message indicating the missing field.
+    If the plaintext or ciphertext field contains non-alphabetic characters, the API will return a 400 Bad Request error with a message indicating the invalid characters.
+    If the key field is empty, the API will return a 400 Bad Request error with a message indicating that the key cannot be empty.
+    If an unexpected error occurs, the API will return a 500 Internal Server Error with a message indicating the error.
