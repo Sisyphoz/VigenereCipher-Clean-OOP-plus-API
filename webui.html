@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vigenere Encrypt Algo.</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 50px auto;
+        max-width: 800px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .form label {
+        margin-bottom: 10px;
+      }
+
+      .form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+      }
+
+      .form button {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #008cba;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .form button:hover {
+        background-color: #006d9c;
+      }
+
+      .output {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .output label {
+        margin-bottom: 10px;
+      }
+
+      .output textarea {
+        width: 100%;
+        height: 200px;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Vigenere Cipher API Demo</h1>
+
+      <div class="form">
+        <h2>Encrypt</h2>
+        <label for="encrypt-plaintext">Plaintext:</label>
+        <input type="text" id="encrypt-plaintext" />
+        <label for="encrypt-key">Key:</label>
+        <input type="text" id="encrypt-key" />
+        <button onclick="encrypt()">Encrypt</button>
+      </div>
+
+      <div class="output">
+        <h2>Encrypted Text</h2>
+        <label for="encrypted-text">Result:</label>
+        <textarea id="encrypted-text"></textarea>
+      </div>
+
+      <div class="form">
+        <h2>Decrypt</h2>
+        <label for="decrypt-ciphertext">Ciphertext:</label>
+        <input type="text" id="decrypt-ciphertext" />
+        <label for="decrypt-key">Key:</label>
+        <input type="text" id="decrypt-key" />
+        <button onclick="decrypt()">Decrypt</button>
+      </div>
+
+      <div class="output">
+        <h2>Decrypted Text</h2>
+        <label for="decrypted-text">Result:</label>
+          <textarea id="decrypted-text"></textarea>
+
+  </div>
+</div>
+
+<script>
+  async function encrypt() {
+    const plaintext = document.getElementById("encrypt-plaintext").value;
+    const key = document.getElementById("encrypt-key").value;
+    const response = await fetch("/vigenere/encrypt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        plaintext,
+        key,
+      }),
+    });
+    const { ciphertext } = await response.json();
+    document.getElementById("encrypted-text").value = ciphertext;
+  }
+
+  async function decrypt() {
+    const ciphertext = document.getElementById("decrypt-ciphertext").value;
+    const key = document.getElementById("decrypt-key").value;
+    const response = await fetch("/vigenere/decrypt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ciphertext,
+        key,
+      }),
+    });
+    const { plaintext } = await response.json();
+    document.getElementById("decrypted-text").value = plaintext;
+  }
+</script>
+
+  </body>
+</html>
